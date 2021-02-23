@@ -1,0 +1,139 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 50px auto;
+  width: 70%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+  background-color: rgb(221, 216, 245);
+  border: 1px solid rgb(233, 228, 228);
+  border-radius: 10px;
+}
+
+.tabs {
+  font-size: 0;
+  margin: 40px;
+}
+
+.tabs>input[type="radio"] {
+  display: none;
+}
+
+.tabs>div {
+  /* скрыть контент по умолчанию */
+  display: none;
+  border: 1px solid #e0e0e0;
+  padding: 10px 15px;
+  border-radius: 0 0 10px 10px;
+  font-size: 16px;
+}
+
+/* отобразить контент, связанный с вабранной радиокнопкой (input type="radio") */
+#tab-btn-1:checked~#content-1,
+#tab-btn-2:checked~#content-2 {
+  display: block;
+  background-color: #fff;
+}
+
+.tabs>label {
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  background-color: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px 10px 0 0;
+  padding: 2px 8px;
+  font-size: 16px;
+  line-height: 1.5;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+  cursor: pointer;
+  position: relative;
+  top: 1px;
+}
+
+.tabs>label:not(:first-of-type) {
+  border-left: none;
+}
+
+.tabs>input[type="radio"]:checked+label {
+  background-color: #fff;
+  border-bottom: 1px solid #fff;
+}
+
+
+.title-block {
+    display: flex;    
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    border-radius: 30px;
+    border: 1px solid blue;
+}
+
+.messageBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    .message {
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+        margin: 20px;
+        padding: 20px;
+        text-align: left;
+        background-color: pink;
+        border-radius: 10px;
+    }
+    .out-message {
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+        margin: 20px;
+        padding: 20px;
+        text-align: left;
+        background-color: rgb(184, 233, 213);
+        border-radius: 10px;
+        align-self: flex-start;
+    }
+}
+
+.form {
+    width: 70%;
+    margin: 40px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid grey;
+    border-radius: 20px;
+    .textarea {
+        width: inherit;
+        margin: auto;  
+        border: none;
+        outline: none;
+        font-family: inherit;
+        font-size: inherit;
+        overflow: hidden;
+        resize: none;
+    }
+    .button {
+        width: 30px;
+        height: 30px;
+        border: none;
+        outline: none;
+        border-radius: 20px;
+        padding: 0;
+        margin: auto;
+        background-color: transparent;
+    }
+}
