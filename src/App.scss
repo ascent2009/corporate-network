@@ -18,6 +18,89 @@ body {
   border-radius: 10px;
 }
 
+.login-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: rgb(65, 65, 165);
+  .logo {
+    max-width: 300px;
+    max-height: 300px;
+    margin: 50px;
+  }
+  .form-login {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+    
+  
+    .input-block {
+      width: 400px;
+      height: fit-content;
+      display: flex;
+      margin: 5px auto 5px 0;
+      justify-content: space-between;
+      align-items: center;
+      h3 {
+        margin-right: 20px;
+      }
+      .input-text {
+        width: 300px;
+        height: 50px;
+        border: none;
+        outline: none;
+        border-radius: 10px;
+        font-size: 15px;
+        padding-left: 10px;
+        vertical-align: middle;
+        &:focus {
+          border: 3px solid rgb(101, 101, 161);
+        }
+      }
+    }
+    
+    a {
+      outline: none;
+    }
+
+    .btn-login {
+      border: none;
+      outline: none;
+      border-radius: 10px;
+      width: 200px;
+      height: 50px;
+      margin: 15px;
+      margin-top: 40px;
+      font-size: 15px;
+      
+      &:active {
+        transform: translateY(2px);
+      }
+    }
+    .active {
+      outline: none;
+      background-color: rgb(101, 101, 161);
+      color: white;
+      cursor: pointer;
+    }
+  }
+}
+
+.logged-in-user {
+  font-weight: normal;
+  margin-left: 40px;
+  
+  span {
+    color: rgb(65, 65, 165);
+    font-weight: bold;
+  }
+}
+
 .tabs {
   font-size: 0;
   margin: 40px;
@@ -34,6 +117,9 @@ body {
   padding: 10px 15px;
   border-radius: 0 0 10px 10px;
   font-size: 16px;
+  // transform: scaleY(-1);
+  overflow: auto;
+  height: 70vh;
 }
 
 /* отобразить контент, связанный с вабранной радиокнопкой (input type="radio") */
@@ -54,6 +140,7 @@ body {
   border-radius: 10px 10px 0 0;
   padding: 2px 8px;
   font-size: 16px;
+  font-weight: bold;
   line-height: 1.5;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
   cursor: pointer;
@@ -70,14 +157,38 @@ body {
   border-bottom: 1px solid #fff;
 }
 
+@keyframes moveFromLeft{
+  from {
+  transform: translateX(0%);
+  }
+  to {
+  transform: translateX(20%) scale(1);
+  }
+ } 
 
 .title-block {
+    position: fixed;
+    z-index: 1;
     display: flex;    
     align-items: center;
     justify-content: center;
-    margin: auto;
-    border-radius: 30px;
-    border: 1px solid blue;
+    img {
+      margin: 30px;
+    }
+    &:hover {
+      background-color:rgb(188, 212, 203);
+      margin: auto;
+      border-radius: 30px;
+      border: 1px solid blue;
+      min-width: 600px;
+      animation: moveFromLeft 400ms ease-in;
+    }
+    h3 {
+      display: none;
+    }
+    &:hover h3 {
+      display: block;
+    }
 }
 
 .messageBlock {
@@ -85,7 +196,11 @@ body {
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
+    &:hover .icons-block {
+      display: flex
+    }
     .message {
+        position: relative;  
         display: flex;
         flex-direction: column;
         width: 60%;
@@ -94,8 +209,9 @@ body {
         text-align: left;
         background-color: pink;
         border-radius: 10px;
-    }
+        }
     .out-message {
+        position: relative;
         display: flex;
         flex-direction: column;
         width: 60%;
@@ -106,9 +222,35 @@ body {
         border-radius: 10px;
         align-self: flex-start;
     }
+    .icons-block {
+      position: absolute;
+      display: none;
+      width: 60px;
+      height: fit-content;
+      align-items:flex-start;
+      right: -15px;
+      top: 5px;
+      img {
+        opacity: 0.50;
+        &:hover {
+          opacity: 0.70;
+          cursor: pointer;
+        }
+        &:active {
+          transform: translateY(1px);
+          border-top: 1px solid white;
+          }
+      }
+  }
+  .message-date {
+    color: green;
+    font-size: 14px;
+    margin-top: 15px;
+  }
 }
 
 .form {
+    
     width: 70%;
     margin: 40px auto;
     display: flex;
@@ -126,6 +268,38 @@ body {
         overflow: hidden;
         resize: none;
     }
+    .input-file-block {
+        position: relative;
+        .input-file {
+          opacity: 0;
+          visibility: hidden;
+          position: absolute;
+        }
+        .input-img-btn {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          // .emoji {
+          //   // position: absolute;
+          //   z-index: 12;
+          //   bottom: 50px;
+          //   right: 10px;
+          // }
+          img {
+            opacity: 0.50;
+            &:hover {
+              opacity: 0.70;
+              cursor: pointer;
+            }
+            &:active {
+              transform: translateY(1px);
+              border-top: 1px solid white;
+            }
+        }
+      }
+    }
+    
     .button {
         width: 30px;
         height: 30px;

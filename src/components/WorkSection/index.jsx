@@ -1,18 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import {initialWorkDialog} from '../../initialMessages'
 import SendForm from '../SendForm'
-import work from '../../assets/work.png'
+import workPng from '../../assets/work.png'
+import ChangeMessage from '../ChangeMessage'
 
 const WorkSection = (props) => {
-    console.log('props: ', props);
+    
+    const {icons, show, close, user} = props
+    const [workMessages, setWorkMessages] = useState(initialWorkDialog);
+    const divRef = useRef(null);
+    
+    const sendMessage = useCallback((x) => {
+        setWorkMessages([...workMessages, x])    
+        console.log('workMessages: ', workMessages);
+        localStorage.setItem('worktalk', JSON.stringify(workMessages))
+    }, [workMessages])
 
+    useEffect(() => {
+        divRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+      });
+    
     return (
         <div id="content-1">
              <div className="title-block">
-                <img src={work} alt="friends" style={{width: '40px', height: '40px', marginRight: '20px'}}/>
+                <img src={workPng} alt="friends" style={{width: '40px', height: '40px', marginRight: '20px'}}/>
                 <h3 className="title">Здесь обсуждаем рабочие вопросы</h3>
              </div>
-            {props.work}
-            <SendForm />
+            {workMessages.map((item, index) => {
+                return (
+                <div className='messageBlock' key={index} ref={divRef}>
+                    <div className={item.senderID === user ? 'out-message' : 'message'} onMouseDown={show} onMouseLeave={close}>
+                        {icons ? <ChangeMessage /> : null}
+                        <label style={{fontWeight: 'bold', textAlign: 'left'}}>{item.senderID}</label>
+                        {item.text}
+                        <div className="message-date">
+                            {item.date}
+                        </div>
+                    </div>
+                </div>
+                )
+                }
+            )}
+            <SendForm sendMessage={sendMessage} user={user} />
         </div>
     );
 };

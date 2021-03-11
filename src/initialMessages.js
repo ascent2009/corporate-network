@@ -33,5 +33,6 @@ export const initialCommDialog = [
     {
     senderID: 'me',
     text: 'Привет, друзья! Пора попить кофе',
+    file: null
     }
 ]
