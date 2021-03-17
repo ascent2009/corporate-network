@@ -13,10 +13,11 @@ const SendForm = (props) => {
         day: 'numeric',
         hour: 'numeric',
         minute: 'numeric',
-        };
+    };
       
     const [obj, setObj] = useState(null);
     const [message, setMessage] = useState('');
+    const [chosenEmoji, setChosenEmoji] = useState(null);
     const [time, setTime] = useState('')
     const [file, setFile] = useState();
     const [emoji, setEmoji] = useState(false);
@@ -34,15 +35,21 @@ const SendForm = (props) => {
         setEmoji(false)
     }
 
-    const handleChange = (e) => {
+    const onEmojiClick = (event, emojiObject) => {
+        setChosenEmoji(emojiObject);
+    };
+
+    const handleChange = (e, emojiObject) => {
         const value = e.target.value;
         setMessage(value);
+        setChosenEmoji(emojiObject);
         setTime(new Date().toLocaleString('ru', options).replace(',', ''))
         setObj({
             senderID: user,
             text: message,
             file: file,
-            date: time
+            date: time,
+            chosenEmoji: chosenEmoji,
         })
         console.log(obj);
     }
@@ -51,7 +58,8 @@ const SendForm = (props) => {
         if(!message) return
         sendMessage(obj);
         setMessage('');
-        setFile(null)
+        setFile(null);
+        setChosenEmoji(null);
     }
 
     return (
@@ -60,8 +68,9 @@ const SendForm = (props) => {
             <div className="input-file-block">
                 <label htmlFor="input-emoji" className="input-img-btn" onMouseOver={handleSelectEmoji} onClick={handleSelectEmoji} onMouseLeave={handleCloseEmoji}>
                     <img src={EmojiSvg} alt="Добавить эмоцию" />
-                    {emoji ? <Emoji /> : null}
+                    {emoji ? <Emoji onEmojiClick={onEmojiClick} /> : null}
                 </label>
+                {/* {emoji ? chosenEmoji : null} */}
             </div>
             <div className="input-file-block">
                 <input type="file" id="input-file" value={file} name="file" ref={fileInput} onChange={handleSelectFile} className="input-file"/>

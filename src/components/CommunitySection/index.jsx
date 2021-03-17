@@ -25,10 +25,10 @@ const CommunitySection = (props) => {
 
     return (
         <div id="content-2">
-            <div className="title-block">
+            {/* <div className="title-block">
                 <img src={friends} alt="friends" style={{width: '40px', height: '40px', marginRight: '20px'}}/>
                 <h3>Здесь дружеское общение</h3>
-            </div>
+            </div> */}
             {friendsMessages.map((item, index) => {
                 return (
                 <div className='messageBlock' key={index} ref={divRef} data-id="Имя">

@@ -12,7 +12,6 @@ const WorkSection = (props) => {
     
     const sendMessage = useCallback((x) => {
         setWorkMessages([...workMessages, x])    
-        console.log('workMessages: ', workMessages);
         localStorage.setItem('worktalk', JSON.stringify(workMessages))
     }, [workMessages])
 
@@ -25,10 +24,10 @@ const WorkSection = (props) => {
     
     return (
         <div id="content-1">
-             <div className="title-block">
+             {/* <div className="title-block">
                 <img src={workPng} alt="friends" style={{width: '40px', height: '40px', marginRight: '20px'}}/>
                 <h3 className="title">Здесь обсуждаем рабочие вопросы</h3>
-             </div>
+             </div> */}
             {workMessages.map((item, index) => {
                 return (
                 <div className='messageBlock' key={index} ref={divRef}>
@@ -36,6 +35,7 @@ const WorkSection = (props) => {
                         {icons ? <ChangeMessage /> : null}
                         <label style={{fontWeight: 'bold', textAlign: 'left'}}>{item.senderID}</label>
                         {item.text}
+                        {item.chosenEmoji}
                         <div className="message-date">
                             {item.date}
                         </div>
