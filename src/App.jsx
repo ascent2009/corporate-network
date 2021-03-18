@@ -4,11 +4,12 @@ import LoginPage from './components/Pages/LoginPage'
 import './App.scss'
 
 function App() {
+  console.log(localStorage.nick);
   return (
     <Switch>
       <Route exact path='/' component={LoginPage} />
       <Route exact path='/login' component={LoginPage} />
-      <Route exact path='/home' component={HomePage} />
+      {localStorage.nick ? <Route exact path='/home' component={HomePage} /> : alert('ВВеди ник')}
       <Redirect to='/' />
     </Switch>
   );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {initialWorkDialog} from '../../initialMessages'
 import SendForm from '../SendForm'
-import workPng from '../../assets/work.png'
+// import workPng from '../../assets/work.png'
 import ChangeMessage from '../ChangeMessage'
 
 const WorkSection = (props) => {

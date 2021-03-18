@@ -13,7 +13,8 @@ body {
   line-height: 1.5;
   color: #212529;
   text-align: left;
-  background-color: rgb(221, 216, 245);
+  background: linear-gradient(180deg, rgba(207,207,223,1) 15%, rgba(221,216,245,1) 90%);  
+  background-image: url('./assets/background.jpg');
   border: 1px solid rgb(233, 228, 228);
   border-radius: 10px;
 }
@@ -129,8 +130,11 @@ body {
 /* отобразить контент, связанный с вабранной радиокнопкой (input type="radio") */
 #tab-btn-1:checked~#content-1,
 #tab-btn-2:checked~#content-2 {
+  margin-top: 20px;
   display: block;
-  background-color: #fff;
+  background-color: transparent;
+  // background-image: url('./assets/background.jpg');
+  border-top: none;
 }
 
 .tabs>label {
@@ -139,19 +143,25 @@ body {
   text-align: center;
   vertical-align: middle;
   user-select: none;
-  background-color: #dbcdcd;
-  border: 1px solid #e0e0e0;
+  background: rgb(223,223,235);
+  background: linear-gradient(90deg, rgba(223,223,235,1) 29%, rgba(70,71,65,1) 53%);
+  border: 1px solid #c7c4c4;
+  // border-bottom: none;
   border-radius: 10px 10px 0 0;
-  padding: 2px 8px;
+  padding-top: 7px;
   font-size: 16px;
   font-weight: bold;
   line-height: 1.5;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
   cursor: pointer;
   position: relative;
-  top: 1px;
+  // top: 1px;
   p {
     display: none;
+  }
+  img,
+  h3 {
+    opacity: 0.3;
   }
   .title-block {
     display: none;
@@ -167,17 +177,20 @@ body {
     background-color:rgb(188, 212, 203);
     margin: auto;
     border-radius: 20px;
-    border: 1px solid blue;
+    border: 1px solid black;
     width: 80%;
     height: 200px;
     animation: moveFromLeft 400ms ease-in;
+    h3 {
+      margin-right: 20px;
+    }
     &:after {
       position: absolute;
       content: '';
       width: 20px;
       height: 20px;
       top: -11px;
-      border: 1px solid blue;
+      border: 1px solid black;
       border-right: none;
       border-bottom: none;
       z-index: 3;
@@ -192,8 +205,24 @@ body {
 }
 
 .tabs>input[type="radio"]:checked+label {
-  background-color: #fff;
-  border-bottom: 1px solid #fff;
+  background-color: transparent;
+  background-image: url('./assets/background.jpg');
+  border: 1px solid #ebe8e8;
+  border-bottom: none;
+  position: relative;
+    &:before {
+      position: absolute;
+      content: '';
+      background: url('./assets/tick_mark.svg') no-repeat;
+      left: 0;
+      top: 0;
+      width: 31px;
+      height: 31px;
+    }
+  img,
+  h3 {
+    opacity: 1;
+  }
 }
 
 @keyframes moveFromLeft{
@@ -246,7 +275,9 @@ body {
         margin: 20px;
         padding: 20px;
         text-align: left;
-        background-color: pink;
+        color:rgb(233, 228, 228);
+        background: rgb(223,223,235);
+        background: linear-gradient(90deg, rgba(223,223,235,1) 1%, rgba(53,61,101,1) 5%);
         border-radius: 10px;
         }
     .out-message {
@@ -257,7 +288,9 @@ body {
         margin: 20px;
         padding: 20px;
         text-align: left;
-        background-color: rgb(184, 233, 213);
+        color: rgba(53,61,101,1);
+        background: rgb(223,223,235);
+        background: linear-gradient(90deg, rgba(223,223,235,1) 94%, rgba(53,61,101,1) 99%);
         border-radius: 10px;
         align-self: flex-start;
     }
@@ -277,7 +310,9 @@ body {
         }
         &:active {
           transform: translateY(1px);
-          border-top: 1px solid white;
+          border-top: 1px solid black;
+          border-left: 1px solid black;
+          background-color:rgb(101, 101, 161)
           }
       }
   }
@@ -289,12 +324,12 @@ body {
 }
 
 .form {
-    
     width: 70%;
     margin: 40px auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: white;
     border: 1px solid grey;
     border-radius: 20px;
     .textarea {
@@ -353,15 +388,27 @@ body {
 
 
 @media screen and (max-width: 900px) {
+  
   body {
-    width: 95%;
+    width: 90%;
     margin: 10px;
     .login-block {
+      // .logo {
+      //   width: 60%;
+      // } 
+      .form-login {
+        margin-top: 0;
+      }
       h1 {
         display: none;
       }
       .input-block {
         flex-direction: column;
+        h3 {
+          width: 300px;
+          text-align: left;
+          margin: 10px 0 10px 20px;
+        }
       }
     }
     .title-block {
@@ -376,16 +423,40 @@ body {
       margin: 10px;
     }
     .tabs>label {
-      width: 100%;
-      display: flex;
+      width: 50%;
       justify-content: center;
       align-items:center;
+      border-bottom: 1px solid transparent;
+      
       &:hover .title-block {
         display: none;
       }
     }
+
+    #content-1,
+    #content-2 {
+      height: 600px;
+    }
+    
     .form {
       width: inherit;
+      margin-bottom: 20px;
+    }
+    .messageBlock {
+      // justify-content: center;
+      margin: 0;
+      .message,
+      .out-message {
+        width: 95%;
+        // justify-content: center;
+        font-size: 13px;
+        label {
+          font-size: 15px;
+        }
+        .message-date {
+          font-size: inherit;
+        }
+      }
     }
   }
 }

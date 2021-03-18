@@ -63,6 +63,7 @@ const SendForm = (props) => {
     }
 
     return (
+        <>
         <form className="form">
             <textarea className="textarea" wrap="soft" rows="2" value={message} onChange={handleChange} />
             <div className="input-file-block">
@@ -80,6 +81,10 @@ const SendForm = (props) => {
             </div>
             <button type="button" onClick={handleSubmit} className="button"><img src={SendSvg} alt="Отправить" /></button>
         </form>
+        {message ?
+        <p style={{fontStyle: 'italic', color: 'blue', textAlign: 'center'}}><span style={{fontWeight: 'bold', color: 'black', fontStyle: 'normal'}}>{user}</span> печатает...</p> :
+        <p style={{color: 'green', textAlign: 'center'}}><span style={{fontWeight: 'bold', color: 'black'}}>{user}</span> в сети</p>}
+        </>
     );
 };
 

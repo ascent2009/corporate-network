@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react'
 import {initialCommDialog} from '../../initialMessages'
 import SendForm from '../SendForm'
-import friends from '../../assets/friends.png'
+// import friends from '../../assets/friends.png'
 // import DelSvg from '../../assets/trash.svg'
 import ChangeMessage from '../ChangeMessage'
 
@@ -13,9 +13,11 @@ const CommunitySection = (props) => {
     // const [user, setUser] = useState('me')
     
     useEffect(() => {
-        // divRef.current.scrollIntoView({ behavior: 'smooth' });
-        divRef.current.scrollTop = divRef.current.scrollHeight
-    }, [divRef]);
+        divRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // divRef.current.scrollTop = divRef.current.scrollHeight
+    }
+    //  [divRef]
+    );
     
     
     const sendMessage = (obj) => {
