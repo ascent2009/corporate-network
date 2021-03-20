@@ -15,7 +15,13 @@ const WorkSection = (props) => {
         localStorage.setItem('worktalk', JSON.stringify(workMessages))
     }, [workMessages])
 
-    useEffect(() => {
+    const handleDeleteMessage = (x) => {
+        setWorkMessages(x);
+    }
+
+    useEffect(
+        () => {
+        if (divRef && divRef.current)
         divRef.current.scrollIntoView({
             behavior: 'smooth',
             block: 'start'
@@ -32,8 +38,14 @@ const WorkSection = (props) => {
                 return (
                 <div className='messageBlock' key={index} ref={divRef}>
                     <div className={item.senderID === user ? 'out-message' : 'message'} onMouseDown={show} onMouseLeave={close}>
-                        {icons ? <ChangeMessage /> : null}
-                        <label style={{fontWeight: 'bold', textAlign: 'left'}}>{item.senderID}</label>
+                        {icons ? <ChangeMessage
+                            key={index}
+                            index={index}
+                            sendMessage={sendMessage}
+                            handleDeleteMessage={handleDeleteMessage}
+                            works={workMessages} />
+                        : null}
+                        <label style={{fontWeight: 'bold', textAlign: 'left',}}>{item.senderID}</label>
                         {item.text}
                         {item.chosenEmoji}
                         <div className="message-date">

@@ -9,7 +9,9 @@ function App() {
     <Switch>
       <Route exact path='/' component={LoginPage} />
       <Route exact path='/login' component={LoginPage} />
-      {localStorage.nick ? <Route exact path='/home' component={HomePage} /> : alert('ВВеди ник')}
+      {/* {localStorage.nick ? */}
+      <Route exact path='/home' component={HomePage} />
+      {/* // : alert('ВВеди ник')} */}
       <Redirect to='/' />
     </Switch>
   );

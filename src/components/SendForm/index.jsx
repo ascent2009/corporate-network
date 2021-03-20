@@ -2,10 +2,12 @@ import React, { useState, useRef } from 'react'
 import Emoji from '../Emoji'
 import SendSvg from '../../assets/send.svg'
 import AttachSvg from '../../assets/attachment.svg'
+import DropSvg from '../../assets/dropdown.svg'
 import EmojiSvg from '../../assets/emoji.svg'
 
+
 const SendForm = (props) => {
-    
+        
     const { sendMessage, user } = props;
     const options = {
         year: 'numeric',
@@ -22,6 +24,19 @@ const SendForm = (props) => {
     const [file, setFile] = useState();
     const [emoji, setEmoji] = useState(false);
     const fileInput = useRef(null);
+    const [style, setStyle] = useState(false);
+    
+    // const showExtraIcons = () => {
+    //     setStyle({display: 'flex'})
+    // }
+
+    const handleToogleStyles = () => {
+        setStyle(!style)
+    }
+
+    const hideExtraIcons = () => {
+        setStyle(false)
+    }
     
     const handleSelectFile = () => {
         setFile(fileInput.current.files[0])
@@ -66,18 +81,23 @@ const SendForm = (props) => {
         <>
         <form className="form">
             <textarea className="textarea" wrap="soft" rows="2" value={message} onChange={handleChange} />
-            <div className="input-file-block">
-                <label htmlFor="input-emoji" className="input-img-btn" onMouseOver={handleSelectEmoji} onClick={handleSelectEmoji} onMouseLeave={handleCloseEmoji}>
-                    <img src={EmojiSvg} alt="Добавить эмоцию" />
-                    {emoji ? <Emoji onEmojiClick={onEmojiClick} /> : null}
-                </label>
-                {/* {emoji ? chosenEmoji : null} */}
-            </div>
-            <div className="input-file-block">
-                <input type="file" id="input-file" value={file} name="file" ref={fileInput} onChange={handleSelectFile} className="input-file"/>
-                <label htmlFor="input-file" className="input-img-btn">
-                    <img src={AttachSvg} alt="Прикрепить файл" />
-                </label>
+            <div className="input-icons-block">
+                <img className="dropdown" src={DropSvg} onClick={handleToogleStyles} onMouseLeave={hideExtraIcons} alt="Добавить элементы" />
+                <div className="input-extra-block" style={style ? {display: 'flex'} : null}>
+                    <div className="input-file-block">
+                        <label className="input-img-btn" onMouseOver={handleSelectEmoji} onClick={handleSelectEmoji} onMouseLeave={handleCloseEmoji}>
+                            <img src={EmojiSvg} alt="Добавить эмоцию" />
+                            {emoji ? <Emoji onEmojiClick={onEmojiClick} /> : null}
+                        </label>
+                        {/* {emoji ? chosenEmoji : null} */}
+                    </div>
+                    <div className="input-file-block">
+                        <input type="file" id="input-file" value={file} name="file" ref={fileInput} onChange={handleSelectFile} className="input-file"/>
+                        <label htmlFor="input-file" className="input-img-btn">
+                            <img src={AttachSvg} alt="Прикрепить файл" />
+                        </label>
+                    </div>
+                </div>
             </div>
             <button type="button" onClick={handleSubmit} className="button"><img src={SendSvg} alt="Отправить" /></button>
         </form>

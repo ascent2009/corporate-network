@@ -9,6 +9,7 @@ import friends from '../../../assets/friends.png'
 function HomePage() {
   const [checked, setChecked] = useState(true)
   const [showIcons, setShowIcons] = useState(false)
+  // const [style, setStyle] = useState({display: 'flex'})
   const [user, setUser] = useState(null); 
   
   useEffect(
@@ -21,10 +22,12 @@ function HomePage() {
 
   const showMessageIcons = () => {
     setShowIcons(true)
+    // setStyle({display: 'flex'})
 }
 
   const closeMessageIcons = () => {
       setShowIcons(false)
+      // setStyle({display: 'none'})
   }
 
   return (
