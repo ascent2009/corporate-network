@@ -8,7 +8,7 @@ import EmojiSvg from '../../assets/emoji.svg'
 
 const SendForm = (props) => {
         
-    const { sendMessage, user } = props;
+    const { sendMessage, handleInputText, user, message } = props;
     const options = {
         year: 'numeric',
         month: 'numeric',
@@ -18,7 +18,7 @@ const SendForm = (props) => {
     };
       
     const [obj, setObj] = useState(null);
-    const [message, setMessage] = useState('');
+    // const [message, setMessage] = useState('');
     const [chosenEmoji, setChosenEmoji] = useState(null);
     const [time, setTime] = useState('')
     const [file, setFile] = useState();
@@ -56,12 +56,12 @@ const SendForm = (props) => {
 
     const handleChange = (e, emojiObject) => {
         const value = e.target.value;
-        setMessage(value);
+        handleInputText(value);
         setChosenEmoji(emojiObject);
         setTime(new Date().toLocaleString('ru', options).replace(',', ''))
         setObj({
             senderID: user,
-            text: message,
+            text: value,
             file: file,
             date: time,
             chosenEmoji: chosenEmoji,
@@ -72,7 +72,7 @@ const SendForm = (props) => {
     const handleSubmit = (e) => {
         if(!message) return
         sendMessage(obj);
-        setMessage('');
+        handleInputText('');
         setFile(null);
         setChosenEmoji(null);
     }

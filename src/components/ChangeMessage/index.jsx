@@ -5,34 +5,36 @@ import ConfirmSvg from '../../assets/confirm.svg'
 
 const ChangeMessage = (props) => {
 
-    const {index, works, friends, sendMessage, handleDeleteMessage} = props;
-    const [edit, setEdit] = useState(false);
-    const [editValue, setEditValue] = useState('');
-    
+    const {index, works, friends, handleChangeMessage, handleDeleteMessage, textRef, hideInitialInput, active} = props;
+    const [editInput, setEditInput] = useState(false);
+    const [editValue, setEditValue] = useState(null);
+
     const deleteMessage = (e) => {
         const idx = e.target.dataset.id;
         const newArr = [...works.slice(0, idx), ...works.slice(idx + 1)];
-        console.log(newArr);
         handleDeleteMessage(newArr);
     }
     
     const showEditInput = (e) => {
-        setEdit(true)
+        setEditInput(true)
+        // const idx = e.target.dataset.id;
+        // const oldValue = works[idx].text;
+        // console.log('oldValue: ', oldValue);
+        hideInitialInput(active)
     }
 
     const editMessage = (e) => {
-        const id = e.target.dataset.id;
-        console.log(id);
-        if(id) {
-            console.log(works[id].text)
-        };
-        const value = e.target.value;
-        console.log('value: ', value);
-        setEditValue(value);
+        const changedValue = textRef.current;
+        // const changedValue = e.currentTarget.value;
+        // const oldValue = works[idx].text;
+        // const idx = document.querySelectorAll('p');
+        // idx.forEach((el, index, idx) => {return el.innerText = e.target.value})
+        // for (let el of idx) {el.innerText = e.target.value}
+        setEditValue(changedValue.textContent = e.target.value);
     }
 
     const saveChangedMessage = () => {
-        sendMessage(setEdit)
+        editValue && handleChangeMessage(editValue)
     }
 
     return (
@@ -41,7 +43,7 @@ const ChangeMessage = (props) => {
             <img src={EditSvg} onClick={showEditInput} alt="Редактировать" data-id={index}/>
             <img src={DelSvg} onClick={deleteMessage} alt="Удалить" data-id={index} />
         </div>
-        {edit ?
+        {editInput ?
         <div className="edit-input" key={index}>
             <textarea
                 onChange={editMessage}
