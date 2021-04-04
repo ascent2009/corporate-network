@@ -3,7 +3,6 @@ import {Route, Switch, Redirect} from 'react-router'
 import HomePage from './components/Pages/HomePage'
 import LoginPage from './components/Pages/LoginPage'
 import './App.scss'
-import Training from './components/Training' 
 
 function App() {
 
