@@ -7,35 +7,26 @@ const LoginPage = () => {
     const [nick, setNick] = useState('');
     const [email, setEmail] = useState('');
     const [disabled, setDisabled] = useState(true);
-    // const user = {
-    //     nick: '',
-    //     email: ''
-    // }
-
-    useEffect(
+    
+    useEffect(        
         () => {
+            localStorage.setItem('nick', nick);
+            localStorage.setItem('email', email)
             if (nick && email) {setDisabled(false)}
         }, [nick, email, disabled]
     )
 
-    function handleAuthNick (e) {
+    
+    function handleAuthNick(e) {
         const value = e.target.value;
         setNick(value);
-        localStorage.setItem('nick', nick)
+        console.log('nick: ', nick);
     }
 
     function handleAuthEmail (e) {
         const value = e.target.value;
         setEmail(value);
-        localStorage.setItem('email', email)
     }
-
-    useEffect(
-        () => {
-            localStorage.getItem('nick')
-            localStorage.getItem('email')
-        }, [email, nick]
-    )
 
     function handleSubmitLogin (e) {
         e.preventDefault()
@@ -50,11 +41,11 @@ const LoginPage = () => {
             <form className="form-login">
                 <label htmlFor="nick" className='input-block'>
                     <h3>nick</h3>
-                    <input type="text" id='nick' name='nick' value={nick} className='input-text' onChange={handleAuthNick} />
+                    <input type="text" id='nick' name='nick' defaultValue={nick} className='input-text' onChange={(e) => handleAuthNick(e)} />
                 </label>
                 <label htmlFor="email" className='input-block'>
                     <h3>email</h3>
-                    <input type="email" id='email' name='email' value={email} className='input-text' onChange={handleAuthEmail} />
+                    <input type="email" id='email' name='email' defaultValue={email} className='input-text' onChange={handleAuthEmail} />
                 </label>
                 <Link to='/home'>
                     <button disabled={disabled} type='submit' onSubmit={handleSubmitLogin} className={disabled ? "btn-login" : "btn-login active"}>Войти</button>

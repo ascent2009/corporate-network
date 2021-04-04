@@ -5,13 +5,18 @@ import ConfirmSvg from '../../assets/confirm.svg'
 
 const ChangeMessage = (props) => {
 
-    const {index, works, friends, handleChangeMessage, handleDeleteMessage, textRef, hideInitialInput, active} = props;
+    const {index, works, friends, handleChangeMessage,
+        handleDeleteMessage, textRef,
+        hideInitialInput, active, tabWork} = props;
     const [editInput, setEditInput] = useState(false);
     const [editValue, setEditValue] = useState(null);
-
+    
+    
     const deleteMessage = (e) => {
         const idx = e.target.dataset.id;
-        const newArr = [...works.slice(0, idx), ...works.slice(idx + 1)];
+        // const newArr = [...works.slice(0, idx), ...works.slice(idx + 1)];
+        const newArr = tabWork ? works.filter(item => idx !== item.id)
+        : friends.filter(item => idx !== item.id);
         handleDeleteMessage(newArr);
     }
     

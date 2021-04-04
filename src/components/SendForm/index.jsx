@@ -1,9 +1,12 @@
 import React, { useState, useRef } from 'react'
+import useSound from 'use-sound';
 import Emoji from '../Emoji'
 import SendSvg from '../../assets/send.svg'
 import AttachSvg from '../../assets/attachment.svg'
 import DropSvg from '../../assets/dropdown.svg'
 import EmojiSvg from '../../assets/emoji.svg'
+import sendSound from '../../assets/9bd5305d8e463b9.mp3'
+// import {itemId} from '../../initialMessages'
 
 
 const SendForm = (props) => {
@@ -16,7 +19,8 @@ const SendForm = (props) => {
         hour: 'numeric',
         minute: 'numeric',
     };
-      
+    const [play] = useSound(sendSound)
+    
     const [obj, setObj] = useState(null);
     // const [message, setMessage] = useState('');
     const [chosenEmoji, setChosenEmoji] = useState(null);
@@ -25,7 +29,7 @@ const SendForm = (props) => {
     const [emoji, setEmoji] = useState(false);
     const fileInput = useRef(null);
     const [style, setStyle] = useState(false);
-    
+   
     // const showExtraIcons = () => {
     //     setStyle({display: 'flex'})
     // }
@@ -60,13 +64,14 @@ const SendForm = (props) => {
         setChosenEmoji(emojiObject);
         setTime(new Date().toLocaleString('ru', options).replace(',', ''))
         setObj({
+            id: (Math.random() * 10).toFixed(2),
             senderID: user,
             text: value,
             file: file,
             date: time,
             chosenEmoji: chosenEmoji,
         })
-        console.log(obj);
+        // console.log(obj);
     }
 
     const handleSubmit = (e) => {
@@ -75,6 +80,8 @@ const SendForm = (props) => {
         handleInputText('');
         setFile(null);
         setChosenEmoji(null);
+        play()
+        
     }
 
     return (

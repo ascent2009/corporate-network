@@ -1,28 +1,52 @@
 import React, {useState, useRef, useEffect} from 'react'
 import {initialCommDialog} from '../../initialMessages'
 import SendForm from '../SendForm'
-// import friends from '../../assets/friends.png'
-// import DelSvg from '../../assets/trash.svg'
 import ChangeMessage from '../ChangeMessage'
 
 const CommunitySection = (props) => {
 
-    const {icons, show, close, user} = props
+    const {icons, show, close, user} = props;
+    const [message, setMessage] = useState('');
+    // const [isActive, setIsActive] = useState(false);
     const [friendsMessages, setFriendsMessages] = useState(initialCommDialog)
     const divRef = useRef(null);
-    // const [user, setUser] = useState('me')
+    const textRef = useRef();
+
     
-    useEffect(() => {
-        divRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        // divRef.current.scrollTop = divRef.current.scrollHeight
+    useEffect(
+        () => {
+        if (divRef && divRef.current)
+        divRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+      });
+    
+    useEffect(() => localStorage.setItem('friendstalk', JSON.stringify(friendsMessages)), [friendsMessages])
+    
+    const sendMessage = (x) => {
+        const newArrValue = [...friendsMessages, x];
+        setFriendsMessages(newArrValue);
+        // localStorage.setItem('friendstalk', JSON.stringify(friendsMessages))
     }
-    //  [divRef]
-    );
+
+    const handleInputText = (x) => {
+        setMessage(x);
+        // localStorage.setItem('worktalk', JSON.stringify(workMessages))
+    }
+
+    // const hideInitialInput = (x) => {
+    //     setIsActive(x);
+    // }
+
+    const handleChangeMessage = (x) => {
+        if(message.length) return;
+        setMessage(x);
+    }
     
-    
-    const sendMessage = (obj) => {
-        setFriendsMessages([...friendsMessages, obj])
-        localStorage.setItem('friendstalk', JSON.stringify(friendsMessages))
+    const handleDeleteMessage = (x) => {
+        setFriendsMessages(x);
+        // localStorage.setItem('worktalk', JSON.stringify(workMessages))
     }
 
     return (
@@ -33,18 +57,34 @@ const CommunitySection = (props) => {
             </div> */}
             {friendsMessages.map((item, index) => {
                 return (
-                <div className='messageBlock' key={index} ref={divRef} data-id="Имя">
-                    <div className={item.senderID === user ? 'out-message' : 'message'} onMouseDown={show} onMouseLeave={close}>
-                        {icons ? <ChangeMessage key={index} index={index} friends={friendsMessages} /> : null}
-                        <label style={{fontWeight: 'bold', textAlign: 'left'}}>{item.senderID}</label>
-                        {item.text}
-                        {item.date}
+                <div className='messageBlock' key={item.id} ref={divRef} data-id={item.id}>
+                    <div className={item.senderID === user ? 'out-message' : 'message'} onMouseDown={show} onMouseLeave={close} 
+                    // style={isActive ? {display: 'none'} : null}
+                    >
+                        {icons ? <ChangeMessage
+                            key={item.id}
+                            index={item.id}
+                            // sendMessage={sendMessage}
+                            handleDeleteMessage={handleDeleteMessage}
+                            handleChangeMessage={handleChangeMessage}
+                            friends={friendsMessages}
+                            textRef={textRef}
+                            // hideInitialInput={hideInitialInput}
+                            // active={isActive}
+                            />
+                        : null}
+                        <label style={{fontWeight: 'bold', textAlign: 'left',}}>{item.senderID}</label>
+                        <p style={{margin: '10px auto 0 0'}} ref={textRef} data-id={index}>{item.text}</p>
+                        {item.chosenEmoji}
+                        <div className="message-date">
+                            {item.date}
+                        </div>
                     </div>
                 </div>
                 )
                 }
             )}
-            <SendForm sendMessage={sendMessage} user={user} />
+            <SendForm sendMessage={sendMessage} handleInputText={handleInputText} message={message} user={user} />
         </div>
     );
 };

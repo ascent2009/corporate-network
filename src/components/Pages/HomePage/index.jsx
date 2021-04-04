@@ -36,7 +36,12 @@ function HomePage() {
         <h3>Вы вошли как <span>{user}</span></h3>
         <Link to={{
             pathname: "/",
-        }}><img src={LogoutSvg} alt="logout" title="Покинуть чат"/></Link>  
+        }} onClick={() => ['nick', 'email'].forEach((item) => localStorage.removeItem(item))}
+        ><img src={LogoutSvg}
+            alt="logout"
+            title="Покинуть чат"
+            />
+        </Link>  
       </div>
       <div className="tabs">
         <input type="radio" name="tab-btn" id="tab-btn-1"
