@@ -15,7 +15,7 @@ function App() {
     <Switch>
       <Route exact path='/' component={LoginPage} />
       <Route exact path='/login' component={LoginPage} />
-      <Route path='/home' component={updateLocalStorage ? HomePage : Training} /> 
+      <Route path='/home' component={updateLocalStorage ? HomePage : null} /> 
       <Redirect to='/' />
     </Switch>
   );
